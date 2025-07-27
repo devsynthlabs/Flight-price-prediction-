@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Analyser - Flight Booking Made Easy</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+        
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 20px 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            margin: 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .login-card, .signup-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .welcome-title {
+            text-align: center;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1rem;
+            backdrop-filter: blur(5px);
+            box-sizing: border-box;
+        }
+        
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+        
+        .sign-in-btn {
+            width: 100%;
+            padding: 15px;
+            background: rgba(74, 172, 254, 0.8);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .sign-in-btn:hover {
+            background: rgba(74, 172, 254, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(74, 172, 254, 0.3);
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .form-footer p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 10px 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .form-footer a {
+            color: rgba(74, 172, 254, 1);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .form-footer a:hover {
+            color: white;
+            text-shadow: 0 0 10px rgba(74, 172, 254, 0.8);
+        }
+        
+        .password-field {
+            position: relative;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.2rem;
+            user-select: none;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            line-height: 1;
+            margin-top: -4.5px;
+        }
+        
+        .password-toggle:hover {
+            opacity: 1;
+        }
+        
+        .password-toggle.hidden {
+            opacity: 0.5;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .login-card, .signup-card {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            .header {
+                padding: 15px 20px;
+                margin-bottom: 20px;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">AI Analyser ✈</div>
+            <p class="tagline">Your Gateway to the Skies</p>
+        </div>
+        
+        <div class="login-card">
+            <h2 class="welcome-title">Welcome Back</h2>
+            
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <input type="email" class="form-input" id="email" placeholder="Email Address" title="Enter your email address" required>
+                </div>
+                
+                <div class="form-group password-field">
+                    <input type="password" class="form-input" id="password" placeholder="Password" title="Enter your password" required>
+                    <span class="password-toggle" onclick="togglePassword('password')" title="Show/hide password">👁️</span>
+                </div>
+                
+                <button type="submit" class="sign-in-btn">Sign In</button>
+            </form>
+            
+            <div class="form-footer">
+                <p>Don't have an account? <a href="#" id="signUpLink">Sign Up</a></p>
+                <p><a href="#" id="guestLink">Continue as Guest</a></p>
+            </div>
+        </div>
+
+        <!-- Sign Up Form (Hidden by default) -->
+        <div class="signup-card" id="signupCard" style="display: none;">
+            <h2 class="welcome-title">Create Account</h2>
+            
+            <form class="login-form" id="signupForm">
+                <div class="form-row">
+                    <input type="text" class="form-input" id="firstName" placeholder="First Name" title="Enter your first name" required>
+                    <input type="text" class="form-input" id="lastName" placeholder="Last Name" title="Enter your last name" required>
+                </div>
+                
+                <div class="form-group">
+                    <input type="email" class="form-input" id="signupEmail" placeholder="Email Address" title="Enter your email address" required>
+                </div>
+                
+                <div class="form-group password-field">
+                    <input type="password" class="form-input" id="signupPassword" placeholder="Password" title="Enter your password (minimum 6 characters)" required>
+                    <span class="password-toggle" onclick="togglePassword('signupPassword')" title="Show/hide password">👁️</span>
+                </div>
+                
+                <button type="submit" class="sign-in-btn">Create Account</button>
+            </form>
+            
+            <div class="form-footer">
+                <p>Already have an account? <a href="#" id="signInLink">Sign In</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        // Password toggle functionality
+        function togglePassword(fieldId) {
+            const passwordField = document.getElementById(fieldId);
+            const toggleIcon = passwordField.nextElementSibling;
+            
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleIcon.textContent = '🙈';
+                toggleIcon.classList.add('hidden');
+            } else {
+                passwordField.type = 'password';
+                toggleIcon.textContent = '👁️';
+                toggleIcon.classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
